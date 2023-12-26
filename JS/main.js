@@ -10,7 +10,7 @@ var getArrayUsers = [];
 var Login = document.getElementById("login");
 
 var signUp = document.getElementById("signup");
-var userNameH1 = document.getElementById('username');
+var userNameH1 = document.getElementById("USername");
 
 
 function login() {
@@ -28,40 +28,34 @@ function login() {
         ClearElement();
         console.log(signUpArray);
 
-        Signup();
-        localStorage.setItem(`users`, JSON.stringify(signUpArray));
-
-        // for (let i = 0; i < signUpArray.length; i++) {
-
-        //     localStorage.setItem(`usersMail`, signUpArray[i].name);
-        //     localStorage.setItem(`usersMail`, signUpArray[i].mail);
-        //     localStorage.setItem(`usersPass`, signUpArray[i].pass);
-
-        // }
+        // Signup();
+        // localStorage.setItem(`users`, JSON.stringify(signUpArray));
 
 
     } else if (Login.innerHTML == "Log in") {
-        getArrayUsers = JSON.parse(localStorage.getItem('users'));
-        if (getArrayUsers.length == 0) {
+        signUpArray = JSON.parse(localStorage.getItem('users'));
+        if (signUpArray.length == 0) {
             invalidData.innerHTML = "invalid username or password!";
             invalidData.classList.remove('d-none');
-        } else {
-            for (let i = 0; i < getArrayUsers.length; i++) {
-                if (Email.value == getArrayUsers[i].mail && Password.value == getArrayUsers[i].pass) {
-                    invalidData.innerHTML = "Log in Successed";
-                    // userNameH1.innerHTML = "Welcome" + getArrayUsers[i].name;
-                    Login.setAttribute('href', 'home.html');
-                } else {
-                    invalidData.innerHTML = "invalid username or password!";
-                    invalidData.classList.remove('d-none');
+            Signup();
 
+        } else {
+            for (let i = 0; i < signUpArray.length; i++) {
+                if (Email.value == signUpArray[i].mail && Password.value == signUpArray[i].pass) {
+                    invalidData.innerHTML = "Log in Successed";
+                    Login.setAttribute('href', 'home.html');
+                    userNameH1.innerHTML = "Welcome" + signUpArray[i].name;
                 }
             }
             if (invalidData.innerHTML != "Log in Successed") {
                 invalidData.classList.remove('d-none');
+                invalidData.innerHTML = "invalid username or password!";
+
             }
         }
     }
+    // Signup();
+    localStorage.setItem(`users`, JSON.stringify(signUpArray));
 
 }
 
